@@ -1,4 +1,4 @@
-import { db } from "./firebase.js";
+import { db } from "./firebaseNode.js";
 import { ref, set } from "firebase/database";
 import inventory from './inventory.js';
 

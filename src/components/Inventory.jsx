@@ -1,30 +1,9 @@
-import { useState, useEffect } from "react";
-import { ref, onValue, off } from "firebase/database";
-import { db } from "../firebase";
+import { useState} from "react";
 import AddInventory from "./AddInventory";
 
-export default function Inventory() {
-    const [inventory, setInventory] = useState([])
+export default function Inventory({inventory}) {
     const [selectedStore, setSelectedStore] = useState('all')
     const [showAddItem, setShowAddItem] = useState(false)
-
-    useEffect(() => {
-        const inventoryRef = ref(db, 'inventory')
-        const handleDataChange = (snapshot) => {
-            const data = snapshot.val()
-            if (data) {
-                const fetchedData = Object.values(data)
-                setInventory(fetchedData)
-            } else {
-                setInventory([])
-            }
-        }
-        onValue(inventoryRef, handleDataChange)
-
-        return () => {
-            off(inventoryRef)
-        }
-    }, [])
 
     function getCompany(company) {
         switch (company) {
@@ -196,7 +175,7 @@ export default function Inventory() {
                 <button onClick ={() => setShowAddItem(true)} className="add-item-btn">+ Add Item</button>
             </div>
             {displayInventory()}
-            {showAddItem && <AddInventory />}
+            {showAddItem && <AddInventory  setShowAddItem = {setShowAddItem}/>}
         </main>
     )
 }
