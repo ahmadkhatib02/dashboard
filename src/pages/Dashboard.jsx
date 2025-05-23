@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import Inventory from '../components/Inventory';
 import { db } from '../firebase';
 import { ref, onValue, off } from "firebase/database";
+import Orders from '../components/Orders';
 
 export default function Dashboard({ onLogout }) {
     const handleLogout = () => {
@@ -16,6 +17,7 @@ export default function Dashboard({ onLogout }) {
     const [inventory, setInventory] = useState(true)
     const [orders, setOrders] = useState(false)
     const [inventoryData, setInventoryData] = useState([])
+    const [ordersData, setOrdersData] = useState([])
 
     useEffect(() => {
         const inventoryRef = ref(db, 'inventory')
@@ -34,6 +36,27 @@ export default function Dashboard({ onLogout }) {
             off(inventoryRef)
         }
     }, [])
+
+    useEffect(()=>{
+        const orderRef = ref(db, 'orders')
+        const handleDataChange = (snapshot)=> {
+            const data = snapshot.val()
+            if (data) {
+                const fetchedData = Object.values(data)
+                setOrdersData(fetchedData)
+                console.log("Orders data fetched:", fetchedData)
+            } else {
+                setOrdersData([])
+                console.log("No orders data found")
+            }
+        }
+        onValue(orderRef, handleDataChange)
+        return () => {
+            off(orderRef)
+        }
+    }, [])
+
+
 
     const totalInventoryValue = inventoryData.reduce((sum, item) => sum + item.purchase * item.stock, 0)
     const totalProfit = inventoryData.reduce((sum,item)=> sum + (item.selling - item.purchase) * item.stock, 0)
@@ -55,7 +78,7 @@ export default function Dashboard({ onLogout }) {
             <div className='general-info'>
                 <div>
                     <p>Total Orders</p>
-                    <p>1200</p>
+                    <p>{ordersData.length}</p>
                 </div>
                 <ShoppingCartIcon className='green' />
             </div>
@@ -66,7 +89,7 @@ export default function Dashboard({ onLogout }) {
                     <p>${totalProfit}</p>
                 </div>
                 <KeyboardDoubleArrowUpIcon className='purple' />
-            </div> 
+            </div>
 
             <div className='nav-buttons'>
                 <button onClick={() => {
@@ -82,10 +105,10 @@ export default function Dashboard({ onLogout }) {
                 <Inventory inventory= {inventoryData}/>
             )}
             {orders && (
-                <div>
-                    <h2>Orders</h2>
-                    <p>Orders content goes here</p>
-                </div>
+                <Orders
+                    ordersData={ordersData}
+                    inventory={inventoryData}
+                />
             )}
         </main>
     )
