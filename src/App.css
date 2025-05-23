@@ -60,7 +60,6 @@ button[type="submit"]{
   flex-direction: column;
   align-items: center;
   padding: 40px;
-  height: 100vh;
   background-color: #f0f0f0;
   font-family: Arial, sans-serif;
 }
@@ -416,7 +415,8 @@ button[type="submit"]{
 
 /* Submit button styling */
 .add-item-form-submit,
-.add-item-btn {
+.add-item-btn, 
+.order-add-btn {
   padding: 12px;
   background-color: #007bff;
   color: white;
@@ -472,4 +472,191 @@ button[type="submit"]{
     padding: 10px;
     font-size: 14px;
   }
+}
+
+/* Orders Component Styling */
+.orders-component {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.orders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+.orders-header h2 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Individual Order Card */
+.order-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+    transition: box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Customer info styling */
+.order-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 8px 0;
+}
+
+.order-card > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.order-card > div:first-child p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 0;
+}
+
+.order-card > p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 0;
+    text-align: right;
+}
+
+/* Order Items Section */
+.order-items {
+    margin-bottom: 20px;
+}
+
+.order-items h4 {
+    margin: 0 0 12px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-item p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.order-item p:first-child {
+    color: #495057;
+    font-weight: 500;
+}
+
+.order-item p:last-child {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Order Actions Section */
+.order-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid #e9ecef;
+}
+
+.order-actions p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+.order-actions button {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.order-actions button:hover {
+    background-color: #218838;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .orders-component {
+        padding: 15px;
+    }
+
+    .orders-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .orders-header h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .order-card {
+        padding: 20px;
+    }
+
+    .order-card > div:first-child {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .order-card > p {
+        text-align: left;
+    }
+
+    .order-actions {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .order-actions button {
+        justify-content: center;
+    }
 }
