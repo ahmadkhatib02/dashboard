@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Generator</title>
+</head>
+<body>
+    <h1>PWA Icon Generator</h1>
+    <p>This page generates icons for your PWA. Open browser console and run the script.</p>
+    
+    <canvas id="canvas" style="border: 1px solid #ccc;"></canvas>
+    
+    <script>
+        // Function to generate PWA icons
+        function generateIcons() {
+            const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+            
+            sizes.forEach(size => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                canvas.width = size;
+                canvas.height = size;
+                
+                // Create gradient background
+                const gradient = ctx.createLinearGradient(0, 0, size, size);
+                gradient.addColorStop(0, '#007bff');
+                gradient.addColorStop(1, '#0056b3');
+                
+                // Fill background
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, size, size);
+                
+                // Add rounded corners
+                ctx.globalCompositeOperation = 'destination-in';
+                ctx.beginPath();
+                ctx.roundRect(0, 0, size, size, size * 0.1);
+                ctx.fill();
+                ctx.globalCompositeOperation = 'source-over';
+                
+                // Add icon text/symbol
+                ctx.fillStyle = 'white';
+                ctx.font = `bold ${size * 0.4}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('📊', size / 2, size / 2);
+                
+                // Convert to blob and download
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `icon-${size}x${size}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 'image/png');
+            });
+        }
+        
+        // Auto-generate icons when page loads
+        window.addEventListener('load', () => {
+            console.log('Generating PWA icons...');
+            generateIcons();
+            console.log('Icons generated! Check your downloads folder.');
+        });
+    </script>
+</body>
+</html>

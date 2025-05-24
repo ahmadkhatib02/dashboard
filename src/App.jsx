@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useState, useEffect } from 'react'
 import SignIn from './pages/SignIn'
 import Dashboard from './pages/dashboard'
+import InstallButton from './components/InstallButton'
 import './App.css'
 
 function App() {
@@ -66,6 +67,9 @@ function App() {
           }
         />
       </Routes>
+
+      {/* PWA Install Button */}
+      <InstallButton />
     </Router>
   )
 }
