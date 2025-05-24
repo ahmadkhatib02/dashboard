@@ -22,12 +22,12 @@ export default function AddOrder ({setShowAddOrder, inventory}){
                     </select>
                 </div>
 
-                <div className='form-group'> 
+                <div className='form-group'>
                     <label htmlFor={`quantity${i}`}>Quantity</label>
                     <input type="number" name={`quantity${i}`} id={`quantity${i}`} min="1" required />
                     <input type="hidden" name={`price${i}`} value="" />
                 </div>
-                    
+
                     {addItem > 0 && <button type="button" className='remove-item-btn' onClick={() => setaddItem(prev => prev - 1)}>Remove Item</button>}
             </div>
         ))
@@ -36,6 +36,12 @@ export default function AddOrder ({setShowAddOrder, inventory}){
 
     function handleSubmitFormData (e) {
         e.preventDefault()
+
+        if (addItem === 0) {
+            alert("Please add at least one item to the order before submitting.");
+            return;
+        }
+
         const formDataAPI = new FormData(e.target)
         const fullName = formDataAPI.get('fullName')
         const phone = formDataAPI.get('phone')
@@ -55,6 +61,11 @@ export default function AddOrder ({setShowAddOrder, inventory}){
                     price: price
                 })
             }
+        }
+
+        if (order.length === 0) {
+            alert("Please select items and enter valid quantities before submitting.");
+            return;
         }
 
         const newOrder = {
@@ -106,11 +117,23 @@ export default function AddOrder ({setShowAddOrder, inventory}){
                         </div>
 
                         <div className='items-container'>
-                            {manageMultipleItems()}
+                            {addItem === 0 ? (
+                                <div className='no-items-message'>
+                                    <p>No items added yet. Click "+ Add Item" to start adding items to this order.</p>
+                                </div>
+                            ) : (
+                                manageMultipleItems()
+                            )}
                         </div>
                     </div>
 
-                    <button type="submit">Add Order</button>
+                    <button
+                        type="submit"
+                        disabled={addItem === 0}
+                        className={addItem === 0 ? 'add-item-form-submit disabled' : 'add-item-form-submit'}
+                    >
+                        Add Order {addItem === 0 && '(Add at least 1 item)'}
+                    </button>
                 </form>
             </div>
         </div>

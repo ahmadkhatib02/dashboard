@@ -64,16 +64,20 @@ export default function Orders ({ordersData, inventory}) {
                         </div>
                     <div className="order-items">
                         <h4>Items:</h4>
-                        {order.order.map((item, index) => (
-                            <div key={index} className="order-item">
-                                <p>{item.quantity}x {item.name}</p>
-                                <p>${item.price}</p>
-                            </div>
-                        ))}
+                        {order.order && order.order.length > 0 ? (
+                            order.order.map((item, index) => (
+                                <div key={index} className="order-item">
+                                    <p>{item.quantity}x {item.name}</p>
+                                    <p>${item.price}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p style={{ color: '#6c757d', fontStyle: 'italic' }}>No items in this order</p>
+                        )}
                     </div>
 
                     <div className="order-actions">
-                    <p><strong>Total: ${order.order.reduce((sum, item) => sum + (item.price * item.quantity), 0)}</strong></p>
+                    <p><strong>Total: ${order.order && order.order.length > 0 ? order.order.reduce((sum, item) => sum + (item.price * item.quantity), 0) : 0}</strong></p>
                     <button onClick={() => handleCompleted(order.id)}>Completed</button>
                     </div>
 

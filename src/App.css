@@ -437,6 +437,44 @@ button[type="submit"]{
   background-color: #0069d9;
 }
 
+.add-item-form-submit.disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.add-item-form-submit.disabled:hover {
+  background-color: #6c757d;
+}
+
+/* No items message styling */
+.no-items-message {
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.no-items-message p {
+  margin: 0;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Items container styling */
+.items-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.items-container {
+  min-height: 60px;
+}
+
 /* Mobile-specific styles */
 @media (max-width: 480px) {
   .add-item-container {
