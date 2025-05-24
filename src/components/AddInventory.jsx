@@ -33,7 +33,6 @@ export default function AddInventory ({setShowAddItem}) {
 
         return (
             <div className="modal-overlay" onClick={(e) => {
-                // Close modal when clicking outside the form
                 if (e.target.className === 'modal-overlay') {
                     setShowAddItem(false);
                 }

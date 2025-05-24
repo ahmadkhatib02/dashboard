@@ -660,3 +660,15 @@ button[type="submit"]{
         justify-content: center;
     }
 }
+
+.remove-item-btn{
+  text-align: left;
+  color: red;
+  border: none;
+  background-color: transparent;
+}
+
+.margin-top{
+  margin-top: 10px;
+  border-bottom: 1px solid #eee;
+}
