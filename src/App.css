@@ -672,3 +672,18 @@ button[type="submit"]{
   margin-top: 10px;
   border-bottom: 1px solid #eee;
 }
+
+.remove-btn{
+  color: white;
+  text-align: left;
+  background-color: red;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 8px 16px;
+  margin-top: 10px;
+  
+}
