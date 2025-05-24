@@ -83,7 +83,7 @@ export default function Orders ({ordersData, inventory}) {
                     ) : (
                         <p>No orders found</p>
                     )}
-            {showAddOrder && <AddOrder setShowAddOrder={setShowAddOrder} />}
+            {showAddOrder && <AddOrder setShowAddOrder={setShowAddOrder} inventory={inventory} />}
         </main>
     )
 }
