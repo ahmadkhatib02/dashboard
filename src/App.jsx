@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import SignIn from './pages/SignIn'
-import Dashboard from './pages/dashboard'
+import SignIn from './pages/SignIn.jsx'
+import Dashboard from './pages/Dashboard.jsx'
 import InstallButton from './components/InstallButton'
 import './App.css'
 
