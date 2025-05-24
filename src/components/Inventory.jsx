@@ -1,5 +1,7 @@
 import { useState} from "react";
 import AddInventory from "./AddInventory";
+import { db } from '../firebase';
+import { ref, remove } from 'firebase/database';
 
 export default function Inventory({inventory}) {
     const [selectedStore, setSelectedStore] = useState('all')
@@ -18,6 +20,23 @@ export default function Inventory({inventory}) {
         }
     }
 
+    async function handleRemoveItem (itemId) {
+        try {
+            const inventoryToDelete = inventory.filter(item => item.id === itemId)[0]
+
+            if (!inventoryToDelete) {
+                console.error("Item not found");
+                return;
+            }
+            await remove(ref(db, `inventory/${itemId}`));
+
+            console.log(`Successfully removed item: ${inventoryToDelete.name}`);
+
+        } catch (error) {
+            console.error("Error removing item:", error);
+        }
+    }
+
     function displayInventory () {
         if(selectedStore === 'all'){
             return (
@@ -33,12 +52,12 @@ export default function Inventory({inventory}) {
                                 </div>
                                 <p className={item.stock < 10 ? 'red-container' : 'green-container'}>Stock: {item.stock}</p>
                             </div>
-                            
+
                             <div className="prices">
                                 <div>
                                     <p>Purchase:</p>
                                     <p>${item.purchase}</p>
-                                </div> 
+                                </div>
 
                                 <div>
                                     <p>Selling:</p>
@@ -49,6 +68,11 @@ export default function Inventory({inventory}) {
                                 <p>Profit Margin : </p>
                                 <p className={(item.selling - item.purchase)/item.selling * 100 > 30 ? 'green' : 'red'}>{Math.ceil((item.selling - item.purchase)/item.selling * 100)}%</p>
                             </div>
+
+                            <div>
+                                <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                            </div>
+                            
                         </div>
                     ))}
                 </div>
@@ -56,7 +80,7 @@ export default function Inventory({inventory}) {
         }
         else if(selectedStore === 'baydoon'){
             return (
-                <div className="inventory-items"> 
+                <div className="inventory-items">
                     {inventory.filter(item => item.company === 'Baydoon').length === 0 ?
                     <p>No items in Baydoon store</p> :
                     inventory.filter((item) => item.company === 'Baydoon').map((item) => (
@@ -68,12 +92,12 @@ export default function Inventory({inventory}) {
                                 </div>
                                 <p className={item.stock < 10 ? 'red-container' : 'green-container'}>Stock: {item.stock}</p>
                             </div>
-                            
+
                             <div className="prices">
                                 <div>
                                     <p>Purchase:</p>
                                     <p>${item.purchase}</p>
-                                </div> 
+                                </div>
 
                                 <div>
                                     <p>Selling:</p>
@@ -84,6 +108,11 @@ export default function Inventory({inventory}) {
                                 <p>Profit Margin : </p>
                                 <p className={(item.selling - item.purchase)/item.selling * 100 > 30 ? 'green' : 'red'}>{Math.ceil((item.selling - item.purchase)/item.selling * 100)}%</p>
                             </div>
+
+                            <div>
+                                <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                            </div>
+                            
                         </div>
                     ))}
                 </div>
@@ -103,12 +132,12 @@ export default function Inventory({inventory}) {
                                 </div>
                                 <p className={item.stock < 10 ? 'red-container' : 'green-container'}>Stock: {item.stock}</p>
                             </div>
-                            
+
                             <div className="prices">
                                 <div>
                                     <p>Purchase:</p>
                                     <p>${item.purchase}</p>
-                                </div> 
+                                </div>
 
                                 <div>
                                     <p>Selling:</p>
@@ -119,6 +148,11 @@ export default function Inventory({inventory}) {
                                 <p>Profit Margin : </p>
                                 <p className={(item.selling - item.purchase)/item.selling * 100 > 30 ? 'green' : 'red'}>{Math.ceil((item.selling - item.purchase)/item.selling * 100)}%</p>
                             </div>
+
+                            <div>
+                                <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                            </div>
+                            
                         </div>
                     ))}
                 </div>
@@ -138,12 +172,12 @@ export default function Inventory({inventory}) {
                                 </div>
                                 <p className={item.stock < 10 ? 'red-container' : 'green-container'}>Stock: {item.stock}</p>
                             </div>
-                            
+
                             <div className="prices">
                                 <div>
                                     <p>Purchase:</p>
                                     <p>${item.purchase}</p>
-                                </div> 
+                                </div>
 
                                 <div>
                                     <p>Selling:</p>
@@ -154,6 +188,11 @@ export default function Inventory({inventory}) {
                                 <p>Profit Margin : </p>
                                 <p className={(item.selling - item.purchase)/item.selling * 100 > 30 ? 'green' : 'red'}>{Math.ceil((item.selling - item.purchase)/item.selling * 100)}%</p>
                             </div>
+
+                            <div>
+                                <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                            </div>
+                            
                         </div>
                     ))}
                 </div>
