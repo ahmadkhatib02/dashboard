@@ -711,7 +711,7 @@ button[type="submit"]{
   border-bottom: 1px solid #eee;
 }
 
-.remove-btn{
+.remove-btn, .edit-btn{
   color: white;
   text-align: left;
   background-color: red;
@@ -833,4 +833,13 @@ button[type="submit"]{
     .install-text p {
         font-size: 0.8rem;
     }
+}
+
+.edit-btn{
+  background-color: #2196f3;
+}
+
+.gap {
+  display: flex;
+  gap: 10px;
 }

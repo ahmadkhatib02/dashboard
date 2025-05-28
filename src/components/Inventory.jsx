@@ -154,7 +154,7 @@ export default function Inventory({inventory}) {
                                 <p className={(item.selling - item.purchase)/item.selling * 100 > 30 ? 'green' : 'red'}>{Math.ceil((item.selling - item.purchase)/item.selling * 100)}%</p>
                             </div>
 
-                            <div>
+                            <div className="gap">
                                 <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
                                 <button className="edit-btn" onClick={() => setShowEditItem([true, item.id])}>Edit</button>
                             </div>
@@ -196,7 +196,7 @@ export default function Inventory({inventory}) {
                                 <p className={(item.selling - item.purchase)/item.selling * 100 > 30 ? 'green' : 'red'}>{Math.ceil((item.selling - item.purchase)/item.selling * 100)}%</p>
                             </div>
 
-                            <div>
+                            <div className="gap">
                                 <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
                                 <button className="edit-btn" onClick={() => setShowEditItem([true, item.id])}>Edit</button>
                             </div>
@@ -237,7 +237,7 @@ export default function Inventory({inventory}) {
                                 <p className={(item.selling - item.purchase)/item.selling * 100 > 30 ? 'green' : 'red'}>{Math.ceil((item.selling - item.purchase)/item.selling * 100)}%</p>
                             </div>
 
-                            <div>
+                            <div className="gap">
                                 <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
                                 <button className="edit-btn" onClick={() => setShowEditItem([true, item.id])}>Edit</button>
                             </div>
@@ -278,7 +278,7 @@ export default function Inventory({inventory}) {
                                 <p className={(item.selling - item.purchase)/item.selling * 100 > 30 ? 'green' : 'red'}>{Math.ceil((item.selling - item.purchase)/item.selling * 100)}%</p>
                             </div>
 
-                            <div>
+                            <div className="gap">
                                 <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
                                 <button className="edit-btn" onClick={() => setShowEditItem([true, item.id])}>Edit</button>
                             </div>
