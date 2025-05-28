@@ -75,8 +75,8 @@ export default function Inventory({inventory}) {
         }
 
         return (
-            <section>
-                <div>
+            <section className="edit-item-container">
+                <div className="add-item-header">
                     <h3>Edit {name}</h3>
                     <button onClick={()=>setShowEditItem([false, " "])}>X</button>
                 </div>
