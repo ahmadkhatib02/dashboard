@@ -1,6 +1,6 @@
-import InventoryIcon from '@mui/icons-material/Inventory';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { useState, useEffect } from 'react';
 import Inventory from '../components/Inventory';
 import { db } from '../firebase';
@@ -72,7 +72,7 @@ export default function Dashboard({ onLogout }) {
                     <p>Total Inventory Value</p>
                     <p>${totalInventoryValue}</p>
                 </div>
-                <InventoryIcon className='blue'/>
+                <WarehouseIcon className='blue'/>
             </div>
 
             <div className='general-info'>
@@ -88,7 +88,7 @@ export default function Dashboard({ onLogout }) {
                     <p>Total Profit</p>
                     <p>${totalProfit}</p>
                 </div>
-                <KeyboardDoubleArrowUpIcon className='purple' />
+                <TrendingUpIcon className='purple' />
             </div>
 
             <div className='nav-buttons'>
