@@ -1,11 +1,12 @@
 import { useState} from "react";
 import AddInventory from "./AddInventory";
 import { db } from '../firebase';
-import { ref, remove } from 'firebase/database';
+import { ref, remove, set } from 'firebase/database';
 
 export default function Inventory({inventory}) {
     const [selectedStore, setSelectedStore] = useState('all')
     const [showAddItem, setShowAddItem] = useState(false)
+    const [showEditItem, setShowEditItem] = useState([false, " "])
 
     function getCompany(company) {
         switch (company) {
@@ -19,6 +20,7 @@ export default function Inventory({inventory}) {
                 return 'black-container'
         }
     }
+
 
     async function handleRemoveItem (itemId) {
         try {
@@ -35,6 +37,89 @@ export default function Inventory({inventory}) {
         } catch (error) {
             console.error("Error removing item:", error);
         }
+    }
+
+    function handleEditItem (itemId) {
+        const itemToEdit = inventory.filter(item => item.id === itemId) [0]
+        const name = itemToEdit.name
+        const company = itemToEdit.company
+        const purchase = itemToEdit.purchase
+        const selling = itemToEdit.selling
+        const stock = itemToEdit.stock
+
+        function handleEditForm (e) {
+            e.preventDefault()
+            const formDataAPI = new FormData(e.target)
+            const name = formDataAPI.get('name')
+            const company = formDataAPI.get('company')
+            const purchase = Number(formDataAPI.get('purchase'))
+            const selling = Number(formDataAPI.get('selling'))
+            const stock = Number(formDataAPI.get('stock'))
+
+            const updatedItem = {
+                id: itemId,
+                name,
+                company,
+                purchase,
+                selling,
+                stock
+            }
+
+            set(ref(db, `inventory/${itemId}`), updatedItem)
+                .then(() => {
+                    setShowEditItem([false, " "])
+                })
+                .catch((error) => {
+                    console.error("Error editing item:", error)
+                })
+        }
+
+        return (
+            <section>
+                <div>
+                    <h3>Edit {name}</h3>
+                    <button onClick={()=>setShowEditItem([false, " "])}>X</button>
+                </div>
+                <form onSubmit={(e) => handleEditForm(e)}>
+                    <div className="form-group">
+                            <label htmlFor="name">Product Name</label>
+                            <input type="text" name="name" id="name" defaultValue={name} required />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="company">Select Company</label>
+                            <select name="company" id="company" defaultValue={company} required>
+                                <option value="" disabled selected>Select Company</option>
+                                <option value="Baydoon">Baydoon</option>
+                                <option value="Ghenwa">Ghenwa</option>
+                                <option value="GoCami">GoCami</option>
+                            </select>
+                    </div>
+
+                    <div className="price-add">
+                        <div className="form-group">
+                            <label htmlFor="stock">Stock Quantity</label>
+                            <input type="number" name="stock" id="stock" min="0" defaultValue={stock} required />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="purchase">Purchase Price</label>
+                            <input type="number" name="purchase" id="purchase" min="0" step="0.01" defaultValue={purchase} required />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="selling">Selling Price</label>
+                        <input type="number" name="selling" id="selling" min="0" step="0.01" defaultValue={selling} required />
+                    </div>
+
+                    <div className="form-actions">
+                        <button type="submit" className="add-item-btn">Edit Item</button>
+                    </div>
+                </form>
+            </section>
+        )
+
     }
 
     function displayInventory () {
@@ -71,7 +156,9 @@ export default function Inventory({inventory}) {
 
                             <div>
                                 <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                                <button className="edit-btn" onClick={() => setShowEditItem([true, item.id])}>Edit</button>
                             </div>
+                            {(showEditItem[0] && showEditItem[1] === item.id) && handleEditItem(item.id)}
                             
                         </div>
                     ))}
@@ -111,8 +198,9 @@ export default function Inventory({inventory}) {
 
                             <div>
                                 <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                                <button className="edit-btn" onClick={() => setShowEditItem([true, item.id])}>Edit</button>
                             </div>
-                            
+                            {(showEditItem[0] && showEditItem[1] === item.id) && handleEditItem(item.id)}
                         </div>
                     ))}
                 </div>
@@ -151,8 +239,9 @@ export default function Inventory({inventory}) {
 
                             <div>
                                 <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                                <button className="edit-btn" onClick={() => setShowEditItem([true, item.id])}>Edit</button>
                             </div>
-                            
+                            {(showEditItem[0] && showEditItem[1] === item.id) && handleEditItem(item.id)}
                         </div>
                     ))}
                 </div>
@@ -191,8 +280,9 @@ export default function Inventory({inventory}) {
 
                             <div>
                                 <button className="remove-btn" onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                                <button className="edit-btn" onClick={() => setShowEditItem([true, item.id])}>Edit</button>
                             </div>
-                            
+                            {(showEditItem[0] && showEditItem[1] === item.id) && handleEditItem(item.id)}
                         </div>
                     ))}
                 </div>
